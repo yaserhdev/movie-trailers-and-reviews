@@ -1,0 +1,23 @@
+h1 {
+    text-align: center;
+}
+
+.search {
+    text-align: center;
+}
+
+form {
+    padding: 10px;
+}
+
+#history {
+    padding-bottom: 10px;
+}
+
+.column {
+    text-align: center;
+}
+
+#trailer {
+    margin-bottom: 25px;
+}

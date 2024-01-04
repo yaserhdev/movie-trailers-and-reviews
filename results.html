@@ -8,24 +8,28 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
     <link rel="stylesheet" href="./assets/css/style.css" />
   </head>
-  <header>
-    <nav>
-        <h1 class="header">Movie Reviews and Trailers</h1>
-    </nav>
-  </header>
   <body>
-    <section>
+    <header>
+      <div class="container is-fluid content">
+        <h1 class="header notification is-primary">Movie Trailers and Reviews</h1>
+      </div>
+    </header>
+    <div class="columns">
+     <div class="column is-one-quarter card">
         <form id="search-form" class="search-form">
             <input type="text" placeholder="Search Movies"></input>
             <button id="submit-btn" type="submit">Submit</button>
         </form>
         <div id="history" class="hidden">Search History</div>
-    </section>
-    <section>
+     </div>
+     <div class="column card">
         <h1 id="results" class="results">Here is what we found based on your search...</h1>
         <div id="results-list" class="results-list">Results list appends here...</div>
-    </section>
-    <script src="./assets/js/script.js"></script>
+     </div>
+    </div>
+  <script src="./assets/js/script.js"></script>
   </body>
-  <footer class="footer">Copyright</footer>
-  </html>
+<footer class="footer">
+  <p class="content has-text-centered">Copyright</p>
+</footer>
+</html>
