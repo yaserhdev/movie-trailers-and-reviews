@@ -26,7 +26,7 @@ $.ajax(settings).done(function (response) {
 const youtubeAPI = AIzaSyCvc0I7KxpZuIAultkVrpW-eYQGLKNXaSg
 const youtubeURL = https://www.googleapis.com/youtube/v3/search
 function searchByKeyword() {
-    var results = YouTube.Search.list('id,snippet', {q: 'dogs', maxResults: 1});
+    var results = YouTube.Search.list('id,snippet', {q: 'movieTitle', maxResults: 1});
     for(var i in results.items) {
       var item = results.items[i];
       Logger.log('[%s] Title: %s', item.id.videoId, item.snippet.title);
