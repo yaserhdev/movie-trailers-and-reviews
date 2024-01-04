@@ -55,3 +55,5 @@ function getMovieTitle() {
 
 // Event listener for submit button
 $("#submit-btn").on("click", getMovieTitle);
+=======
+
