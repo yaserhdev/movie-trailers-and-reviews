@@ -32,3 +32,28 @@ function searchByKeyword() {
       Logger.log('[%s] Title: %s', item.id.videoId, item.snippet.title);
     }
   }
+
+// Variable for user input
+movieTitle = $("#user-input").val(); 
+
+// Function to get movie title from API call
+function getMovieTitle() {
+    const settings = {
+	    async: true,
+	    crossDomain: true,
+	    url: 'https://moviesdatabase.p.rapidapi.com/titles/search/title/' + movieTitle + '?exact=true&titleType=movie',
+	    method: 'GET',
+	    headers: {
+		    'X-RapidAPI-Key': 'ca79fa9bf9msh9d23e3356f2b48ep1f9043jsn1218866eabb6',
+		    'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
+	    }
+    };
+    $.ajax(settings).done(function (response) {
+	console.log(response);
+    });
+};
+
+// Event listener for submit button
+$("#submit-btn").on("click", getMovieTitle);
+=======
+
