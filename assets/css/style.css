@@ -6,10 +6,6 @@ h1 {
     text-align: center;
 }
 
-form {
-    padding: 10px;
-}
-
 #history {
     padding-bottom: 10px;
 }
@@ -19,5 +15,13 @@ form {
 }
 
 #trailer {
+    margin-bottom: 25px;
+}
+
+input {
+    margin-top: 15px;
+}
+
+button {
     margin-bottom: 25px;
 }
