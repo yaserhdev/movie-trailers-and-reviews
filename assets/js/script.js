@@ -42,6 +42,9 @@ function getMovieTitle() {
 	    async: true,
 	    crossDomain: true,
 	    url: 'https://moviesdatabase.p.rapidapi.com/titles/search/title/' + movieTitle + '?exact=true&titleType=movie',
+		// The following URL and query parameters looks for movies based on the exact movie title searched by the user and 
+		// should hopefully return the searched movie and the IMDB ratings for that movie
+		// url: `https://moviesdatabase.p.rapidapi.com/titles/search/title/${movieTitle}?exact=true&titleType=movie&info=rating`,
 	    method: 'GET',
 	    headers: {
 		    'X-RapidAPI-Key': 'ca79fa9bf9msh9d23e3356f2b48ep1f9043jsn1218866eabb6',
