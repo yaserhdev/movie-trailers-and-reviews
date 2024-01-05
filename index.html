@@ -14,20 +14,26 @@
                 <h1 class="notification is-primary">Movie Trailers and Reviews Application</h1>
             </div>
         </header>
-        <section class="level">
-            <div class="level-item box instructions">User instructions go here...</div>
-        </section>
-        <section class="card search">
-            <form id="search-form" class="search-form">
-                <input type="text" id="user-input" placeholder="Search Movies"></input>
-                <button id="submit-btn" type="submit">Submit</button>
-            </form>
-            <div id="history" class="hidden">Search History</div>
-        </section>
+        <div class="columns is-mobile is-centered">
+            <div class="column is-three-fifths">
+                <section class="level">
+                    <div class="level-item box instructions">User instructions go here...</div>
+                </section>
+                <section class="card search">
+                    <div class="columns is-mobile is-centered">
+                        <div class="column is-four-fifths">
+                            <input class="input is-rounded" type="text" placeholder="Search movies...">
+                        </div>
+                    </div>
+                    <button class="button is-primary is-rounded">Submit</button>
+                    <div id="history" class="hidden">Search History</div>
+                </section>
+            </div>
+        </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="assets\js\script.js"></script>
     </body>
-<footer class="footer">
-    <p class="content has-text-centered">Copyright</p>
-</footer>
+    <footer class="footer">
+        <p class="content has-text-centered">Copyright</p>
+    </footer>
 </html>
