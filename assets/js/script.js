@@ -27,24 +27,6 @@ function getMovieTitle(movieTitle) {
     });
 };
 
-// Function snippet and function to get movie trailer from Movie API
-function getMovieTrailer(movieTitle) {
-	const settings = {
-		async: true,
-		crossDomain: true,
-		url: 'https://moviesdatabase.p.rapidapi.com/titles/search/title/' + movieTitle + '?exact=true&titleType=movie&info=rating',
-		method: 'GET',
-		headers: {
-			'X-RapidAPI-Key': 'ca79fa9bf9msh9d23e3356f2b48ep1f9043jsn1218866eabb6',
-			'X-RapidAPI-Host': 'movie87.p.rapidapi.com'
-		}
-	};
-	// Initiates AJAX request based on the above "settings" object
-	$.ajax(settings).done(function (response) {
-		console.log(response);
-	});
-};
-
 // Function to save search history
 function saveHistory(movieTitle) {
 	movieTitle = movieTitle.toLowerCase();
@@ -68,3 +50,13 @@ $(".button").on("click", function() {
 	// Clears search input value
 	$(".input").val("");
 });
+
+const youtubeAPI = 'AIzaSyCvc0I7KxpZuIAultkVrpW-eYQGLKNXaSg';
+const youtubeURL = 'https://www.googleapis.com/youtube/v3/search';
+function searchByKeyword() {
+    var results = YouTube.Search.list('id,snippet', {q: 'movieTitle', maxResults: 1});
+    for(var i in results.items) {
+      var item = results.items[i];
+      Logger.log('[%s] Title: %s', item.id.videoId, item.snippet.title);
+    };
+  };
