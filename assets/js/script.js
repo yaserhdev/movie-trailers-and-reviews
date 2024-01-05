@@ -25,7 +25,7 @@ function getMovieTitle(movieTitle) {
 
 // Code snippet and function to get movie trailer from Movie API
 
-function getMovieTrailer(movieTitle)
+function getMovieTrailer(movieTitle) {
 	const settings = {
 		async: true,
 		crossDomain: true,
@@ -40,7 +40,7 @@ function getMovieTrailer(movieTitle)
 	$.ajax(settings).done(function (response) {
 		console.log(response);
 	});
-
+};
 
 // Function to save search history
 
