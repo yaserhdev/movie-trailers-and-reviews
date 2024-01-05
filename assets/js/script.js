@@ -22,11 +22,23 @@ function getMovieTitle(movieTitle) {
 	    }
     };
 	// Initiates AJAX request based on the above "settings" object
-    $.ajax(settings).done(function (response) {
-	console.log(response);
-    });
+    $.ajax(settings)
+		.done(function (response) {
+			//Handle successful response
+			console.log(response);
+    })
+	.fail(function (xhr, textStatus, errorThrown) {
+		//Handle errors and display an error message
+		console.error("Error:", textStatus, errorThrown);
+		displayErrorMessage("Sorry, we couldn't find that one. Please try again.");
+	});
 };
 
+// Function to display an error message
+
+function displayErrorMessage(message = "An error occurred. Please try again later.") {
+    console.log("Error Message:", message);
+}
 // Function to save search history
 function saveHistory(movieTitle) {
 	movieTitle = movieTitle.toLowerCase();
