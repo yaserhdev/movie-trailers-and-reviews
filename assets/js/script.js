@@ -50,6 +50,7 @@ $(".button").on("click", function() {
 	// Clears search input value
 	$(".input").val("");
 });
+
 const youtubeAPI = 'AIzaSyCvc0I7KxpZuIAultkVrpW-eYQGLKNXaSg';
 const youtubeURL = 'https://www.googleapis.com/youtube/v3/search';
 function searchByKeyword() {
@@ -57,5 +58,5 @@ function searchByKeyword() {
     for(var i in results.items) {
       var item = results.items[i];
       Logger.log('[%s] Title: %s', item.id.videoId, item.snippet.title);
-    }
-  }
+    };
+  };
