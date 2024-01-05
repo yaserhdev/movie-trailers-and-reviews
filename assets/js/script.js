@@ -27,24 +27,6 @@ function getMovieTitle(movieTitle) {
     });
 };
 
-// Function snippet and function to get movie trailer from Movie API
-function getMovieTrailer(movieTitle) {
-	const settings = {
-		async: true,
-		crossDomain: true,
-		url: 'https://movie87.p.rapidapi.com/tailor/vid/%7Bid%7D',
-		method: 'GET',
-		headers: {
-			'X-RapidAPI-Key': 'ca79fa9bf9msh9d23e3356f2b48ep1f9043jsn1218866eabb6',
-			'X-RapidAPI-Host': 'movie87.p.rapidapi.com'
-		}
-	};
-	// Initiates AJAX request based on the above "settings" object
-	$.ajax(settings).done(function (response) {
-		console.log(response);
-	});
-};
-
 // Function to save search history
 function saveHistory(movieTitle) {
 	movieTitle = movieTitle.toLowerCase();
