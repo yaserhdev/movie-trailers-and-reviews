@@ -9,6 +9,9 @@ function getMovieTitle(movieTitle) {
 	    crossDomain: true,
 		// URL to which the AJAX request is made
 	    url: 'https://moviesdatabase.p.rapidapi.com/titles/search/title/' + movieTitle + '?exact=true&titleType=movie',
+		// The following URL and query parameters looks for movies based on the exact movie title searched by the user and 
+		// should hopefully return the searched movie and the IMDB ratings for that movie
+		// url: `https://moviesdatabase.p.rapidapi.com/titles/search/title/${movieTitle}?exact=true&titleType=movie&info=rating`,
 	    method: 'GET',
 		// Header object that contains the API Key for user authentication when request is sent
     	// and the specified host
