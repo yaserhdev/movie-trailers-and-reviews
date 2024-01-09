@@ -1,47 +1,132 @@
-// Declare global variables
+// Store search history list to a variable
 var searchHistory = document.getElementById("history-list");
-var movies = JSON.parse(localStorage.getItem("movies")) || [];
+// Store existing or empty search history array to a variable
+var movies = JSON.parse(localStorage.getItem("movie")) || [];
+// Store review list to a variable
+var reviewList = document.getElementById("reviews");
+// Store gif area to a variable
+var giffy = document.getElementById("giffy");
 
-// Function to get movie title from API call
-function getMovieTitle(movieTitle) {
-	// The following code snippet is from the RapidAPI, MOVIEDATABASE API. The following
-	// code snippet uses jQuery to run the associated functions.
-    const settings = {
-		// Boolean indicating that the request should be handled asynchronously
-	    async: true,
-		// Boolean indicating to trigger a cross-origin request
-	    crossDomain: true,
-		// URL to which the AJAX request is made
-	    url: 'https://moviesdatabase.p.rapidapi.com/titles/search/title/' + movieTitle + '?exact=true&titleType=movie',
-	    method: 'GET',
-		// Header object that contains the API Key for user authentication when request is sent
-    	// and the specified host
-	    headers: {
-		    'X-RapidAPI-Key': 'ca79fa9bf9msh9d23e3356f2b48ep1f9043jsn1218866eabb6',
-		    'X-RapidAPI-Host': 'moviesdatabase.p.rapidapi.com'
-	    }
-    };
-	// Initiates AJAX request based on the above "settings" object
-    $.ajax(settings)
-		.done(function (response) {
-			//Handle successful response
-			console.log(response);
-    })
-	.fail(function (xhr, textStatus, errorThrown) {
-		//Handle errors and display an error message
-		console.error("Error:", textStatus, errorThrown);
-		displayErrorMessage("Sorry, we couldn't find that one. Please try again.");
+// Function to get movie info
+function getMovieInfo(movieTitle) {
+	// Options for fetch request
+	const options = {
+		method: 'GET',
+		headers: {
+			accept: 'application/json',
+			Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNTliNDBmMGMwOTdmNjM4ZDQ4YjhlNjlhMDkxNTA3NSIsInN1YiI6IjY1OTllNjI5MjE2MjFkMDI1YjEyNzIwMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._hWhbcMnrwULC8RBE87ZQU64SQJGs4jQBKtTFJBSE64'
+		}
+	};
+	// Fetch request based off movie title to retrieve title, movie ID, and synopsis from response
+	fetch('https://api.themoviedb.org/3/search/movie?query=' + movieTitle + '&include_adult=false&language=en-US&page=1', options)
+		.then(response => response.json())
+		.then(response => {
+			var date = new Date(response.results[0].release_date);
+			var year = date.getFullYear();
+			var title = (response.results[0].original_title + " " + year);
+			displayTitle(title);
+			var movieID = response.results[0].id;
+			getMovieReviews(movieID);
+			var synopsis = response.results[0].overview;
+			displaySynopsis(synopsis);
+			// Removes "hide" class from hidden elements
+			$(".hide").removeClass("hide");
+		})
+};
+
+// Function to display title
+function displayTitle(title) {
+	// Clears current title
+	$("#current-movie").text("");
+	// Displays new title
+	$("#current-movie").text(title);
+};
+
+// Function ti display synopsis
+function displaySynopsis(synopsis) {
+	// Clears current synopsis
+	$("#synopsis").text("");
+	// Displays new synopsis
+	$("#synopsis").text(synopsis);
+};
+
+// Function to get YouTube API data
+function getTrailerID(movieTitle) {
+	// AJAX request based off movie title to retrieve YouTube video ID of official trailer from response
+	$.ajax({
+		url: "https://youtube.googleapis.com/youtube/v3/search?maxResults=5&order=relevance&q=" + movieTitle + "%20Official%20Trailer&key=AIzaSyBjL77pPgy03XkhkRF0ux7R3lAx3F1fPY4",
+		method: "GET"
+	})
+	.then(function(response) {
+		// Function to assign source URL of official trailer from YouTube to iFrame element in HTML
+		$(document).ready(function() {
+			// Removes current iFrame URL
+			$("iframe").removeAttr("src");
+			var videoID = response.items[0].id.videoId;
+			// Assigns new iFrame URL
+			$("iframe").attr("src", "https://www.youtube.com/embed/" + videoID);
+		});
 	});
 };
 
-// Function to display an error message
+// Function to get movie reviews
+function getMovieReviews(movieID) {
+	// Options for fetch request
+	const options = {
+		method: 'GET',
+		headers: {
+			accept: 'application/json',
+		  	Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIyNTliNDBmMGMwOTdmNjM4ZDQ4YjhlNjlhMDkxNTA3NSIsInN1YiI6IjY1OTllNjI5MjE2MjFkMDI1YjEyNzIwMSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ._hWhbcMnrwULC8RBE87ZQU64SQJGs4jQBKtTFJBSE64'
+		}
+	};
+	// Fetch request based off movie ID to retrieve movie reviews from response
+	fetch('https://api.themoviedb.org/3/movie/' + movieID + '/reviews?language=en-US&page=1', options)
+		.then(response => response.json())
+		.then(response => {
+			var reviews = [];
+			// For loop to push each review from response to reviews array
+			for (let i = 0; i < response.results.length; i++) {
+				reviews.push(response.results[i].content);
+			};
+			displayReviews(reviews);		
+		});
+};
 
-function displayErrorMessage(message = "An error occurred. Please try again later.") {
-    console.log("Error Message:", message);
-}
+// Function to display reviews
+function displayReviews(reviews) {
+	// Removes current reviews
+	$("li").remove();
+	// For loop to display each review from reviews array
+	for (let i = 0; i < reviews.length; i++) {
+		var li = document.createElement("li");
+		li.textContent = reviews[i];
+		reviewList.appendChild(li);
+	};
+};
+
+// Function to get and display gif
+function getGiffy (movieTitle) {
+	// Variable for fetch request to Giffy API
+    var APIKey = "Vyq56LLo8dMdf8o9UXjv3AD6rkGETMiR";
+    var giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=" + APIKey + "&q=" + movieTitle;
+	// Fetch request based off movie title to retrieve gif data
+    fetch(giphyURL)
+	.then(response => response.json())
+	.then(response => {
+        var imgPath = response.data[0].images.fixed_height.url;
+        var img = document.createElement("img");
+        img.setAttribute("src", imgPath);
+		// Removes current gif
+		$("img").remove();
+        giffy.appendChild(img); 
+	});
+};
+
 // Function to save search history
 function saveHistory(movieTitle) {
+	// Converts movie title to lowercase for comparison purposes
 	movieTitle = movieTitle.toLowerCase();
+	// If statement to check for existing movie in search history; if entered movie title was not previously entered it is pushed to movies array and saved to local storage
 	if (movies.includes(movieTitle) === false) {
 		movies.push(movieTitle);
 		var movieJSON = JSON.stringify(movies);
@@ -52,23 +137,53 @@ function saveHistory(movieTitle) {
 
 // Function to display search history
 function displayHistory() {
+	// Clears text content of search history list
 	searchHistory.textContent = "";
+	// For loop to display search history as buttons
+	for (let i = 0; i < movies.length; i++) {
+		var button = document.createElement('button');
+		button.textContent = movies[i];
+		searchHistory.appendChild(button);
+		button.classList.add("button", "is-primary", "is-light", "history");
+	};
+	// Adds event listener to execute "loadHistory" function on click
+	searchHistory.addEventListener("click", loadHistory);
+};
+
+// Function to display trailer, reviews, and synopsis of movie from search history when corresponding button is clicked
+function loadHistory(event) {
+	// Assigns text content of button that was clicked to a variable
+	var movieTitle = event.target.textContent;
+	getMovieInfo(movieTitle);
+	getTrailerID(movieTitle);
+	getGiffy(movieTitle);
 };
 
 // Event listener for submit button
-$(".button").on("click", function() {
+$(".search-btn").on("click", function() {
+	// Assigns search input value to a variable
 	var movieTitle = $(".input").val(); 
-	getMovieTitle(movieTitle);
+	getMovieInfo(movieTitle);
+	getTrailerID(movieTitle);
+	saveHistory(movieTitle);
+	getGiffy(movieTitle);
 	// Clears search input value
 	$(".input").val("");
 });
 
-const youtubeAPI = 'AIzaSyCvc0I7KxpZuIAultkVrpW-eYQGLKNXaSg';
-const youtubeURL = 'https://www.googleapis.com/youtube/v3/search';
-function searchByKeyword() {
-    var results = YouTube.Search.list('id,snippet', {q: 'movieTitle', maxResults: 1});
-    for(var i in results.items) {
-      var item = results.items[i];
-      Logger.log('[%s] Title: %s', item.id.videoId, item.snippet.title);
-    };
-  };
+// Event listener for clear history button
+$(".clear-btn").on("click", function() {
+	// Removes search history
+    $(".history").remove();
+	// Clears local storage
+    localStorage.clear();
+    resetPage();
+});
+
+// Function to reset page to initial state
+function resetPage() {
+    location.reload();
+};
+
+// Displays search history on page load
+displayHistory();
