@@ -56,7 +56,7 @@ function displaySynopsis(synopsis) {
 function getTrailerID(movieTitle) {
 	// AJAX request based off movie title to retrieve YouTube video ID of official trailer from response
 	$.ajax({
-		url: "https://youtube.googleapis.com/youtube/v3/search?maxResults=5&order=relevance&q=" + movieTitle + "%20Official%20Trailer&key=AIzaSyBjL77pPgy03XkhkRF0ux7R3lAx3F1fPY4",
+		url: "https://youtube.googleapis.com/youtube/v3/search?maxResults=5&order=relevance&q=" + movieTitle + "%20Official%20Trailer&key=AIzaSyAQhT0mYkvk8Cer8MVAjYEd_bCvR9TjG3A",
 		method: "GET"
 	})
 	.then(function(response) {
@@ -109,7 +109,7 @@ function displayReviews(reviews) {
 // Function to get and display gif
 function getGiffy (movieTitle) {
 	// Variable for fetch request to Giffy API
-    var APIKey = "AIzaSyAQhT0mYkvk8Cer8MVAjYEd_bCvR9TjG3A";
+    var APIKey = "Vyq56LLo8dMdf8o9UXjv3AD6rkGETMiR";
     var giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=" + APIKey + "&q=" + movieTitle + "&rating=g";
 	// Fetch request based off movie title to retrieve gif data
     fetch(giphyURL)
