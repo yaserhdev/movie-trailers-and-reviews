@@ -108,7 +108,7 @@ function displayReviews(reviews) {
 function getGiffy (movieTitle) {
 	// Variable for fetch request to Giffy API
     var APIKey = "Vyq56LLo8dMdf8o9UXjv3AD6rkGETMiR";
-    var giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=" + APIKey + "&q=" + movieTitle;
+    var giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=" + APIKey + "&q=" + movieTitle + "&rating=g";
 	// Fetch request based off movie title to retrieve gif data
     fetch(giphyURL)
 	.then(response => response.json())
