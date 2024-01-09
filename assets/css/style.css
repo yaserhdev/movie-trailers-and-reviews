@@ -1,5 +1,9 @@
 html {
-    background-color: #13F5D7;
+    background-color: black;
+}
+
+.notification.is-primary {
+    background-color: #01D1B2;
 }
 
 h1 {
@@ -11,7 +15,7 @@ h5 {
 }
 
 .card, .box {
-    background-color: #37F5BB;
+    background-color: #EBA7E5;
 }
 
 .column {
@@ -62,7 +66,7 @@ iframe {
 }
 
 #review {
-    background-color: #13F5D7;
+    background-color: #01D1B2;
     margin: 1em 0.75em 2em 1.5em;
 }
 
@@ -80,7 +84,7 @@ ol li {
 }
 
 .synopsis {
-    background-color: #13F5D7;
+    background-color: #01D1B2;
     margin: 1em 1.5em 2em 0.75em;
 }
 
@@ -95,7 +99,11 @@ img {
 }
 
 .footer {
-    background-color: #13F5D7;
+    background-color: black;
+}
+
+#footer {
+    color: white;
 }
 
 .hide {
