@@ -90,6 +90,7 @@ ol li {
 .synopsis {
     background-color: #01D1B2;
     margin: 1em 1.5em 2em 0.75em;
+    height: fit-content;
 }
 
 p {
