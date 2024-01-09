@@ -163,7 +163,7 @@ function loadHistory(event) {
 
 // Event listener for pressing enter key when searching for a movie
 input.addEventListener("keydown", function(event) {
-	// Check if the key pressed is the Enter key (key code 13)
+	// Check if the key pressed is the "enter" key
 	if (event.key === "Enter") {
     	// Perform the submit action
 		event.preventDefault();
