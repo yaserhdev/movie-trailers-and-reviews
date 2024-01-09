@@ -2,6 +2,10 @@ html {
     background-color: black;
 }
 
+body {
+    font-family: 'Tektur', sans-serif;
+}
+
 .notification.is-primary {
     background-color: #01D1B2;
 }
