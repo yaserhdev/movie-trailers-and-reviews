@@ -6,6 +6,8 @@ var movies = JSON.parse(localStorage.getItem("movie")) || [];
 var reviewList = document.getElementById("reviews");
 // Store gif area to a variable
 var giffy = document.getElementById("giffy");
+// Store the search input to a variable
+var input = document.getElementById("search-input");
 
 // Function to get movie info
 function getMovieInfo(movieTitle) {
@@ -159,8 +161,24 @@ function loadHistory(event) {
 	getGiffy(movieTitle);
 };
 
-// Event listener for submit button
-$(".search-btn").on("click", function() {
+// Event listener for pressing enter key when searching for a movie
+input.addEventListener("keydown", function(event) {
+	// Check if the key pressed is the Enter key (key code 13)
+	if (event.key === "Enter") {
+    	// Perform the submit action
+		event.preventDefault();
+		var movieTitle = $(".input").val(); 
+		getMovieInfo(movieTitle);
+		getTrailerID(movieTitle);
+		saveHistory(movieTitle);
+		getGiffy(movieTitle);
+		// Clears search input value
+		$(".input").val("");
+  	};
+});
+
+// Event listener for clicking submit button
+$("#search-btn").on("click", function() {
 	// Assigns search input value to a variable
 	var movieTitle = $(".input").val(); 
 	getMovieInfo(movieTitle);
