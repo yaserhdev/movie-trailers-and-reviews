@@ -27,4 +27,6 @@ Live application: https://yaserhdev.github.io/movie-trailers-and-reviews/
 
 ![Screenshot of deployed application](assets/images/movie-trailers-and-reviews-screenshot.png)
 
+![Screenshot of deployed application](assets/images/movie-trailers-and-reviews-screenshot-2.png)
+
 * Source code: yaser/bootcamp/movie-trailers-and-reviews

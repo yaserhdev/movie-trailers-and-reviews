@@ -1,12 +1,12 @@
-// Store search history list to a variable
+// Assign search history list to a variable
 var searchHistory = document.getElementById("history-list");
-// Store existing or empty search history array to a variable
+// Assign existing or empty search history array to a variable
 var movies = JSON.parse(localStorage.getItem("movie")) || [];
-// Store review list to a variable
+// Assign review list to a variable
 var reviewList = document.getElementById("reviews");
-// Store gif area to a variable
+// Assign gif area to a variable
 var giffy = document.getElementById("giffy");
-// Store the search input to a variable
+// Assign the search input to a variable
 var input = document.getElementById("search-input");
 
 // Function to get movie info
@@ -33,7 +33,12 @@ function getMovieInfo(movieTitle) {
 			displaySynopsis(synopsis);
 			// Removes "hide" class from hidden elements
 			$(".hide").removeClass("hide");
+			getTrailerID(title);
+			saveHistory(movieTitle);
+			getGiffy(movieTitle);
 		})
+		// Catches error in API request and displays modal
+		.catch((error) => $(".modal").addClass("is-active"));
 };
 
 // Function to display title
@@ -53,10 +58,10 @@ function displaySynopsis(synopsis) {
 };
 
 // Function to get YouTube API data
-function getTrailerID(movieTitle) {
+function getTrailerID(title) {
 	// AJAX request based off movie title to retrieve YouTube video ID of official trailer from response
 	$.ajax({
-		url: "https://youtube.googleapis.com/youtube/v3/search?maxResults=5&order=relevance&q=" + movieTitle + "%20Official%20Trailer&key=AIzaSyAQhT0mYkvk8Cer8MVAjYEd_bCvR9TjG3A",
+		url: "https://youtube.googleapis.com/youtube/v3/search?maxResults=5&order=relevance&q=" + title + "%20Official%20Trailer&key=AIzaSyBpROtHBnDHi9eC6qk0AlZk1waabA2WdCs",
 		method: "GET"
 	})
 	.then(function(response) {
@@ -67,6 +72,8 @@ function getTrailerID(movieTitle) {
 			var videoID = response.items[0].id.videoId;
 			// Assigns new iFrame URL
 			$("iframe").attr("src", "https://www.youtube.com/embed/" + videoID);
+			// Alt text for trailer
+			$("iframe").attr("alt", "YouTube official movie trailer for " + title + ".");
 		});
 	});
 };
@@ -108,7 +115,7 @@ function displayReviews(reviews) {
 
 // Function to get and display gif
 function getGiffy (movieTitle) {
-	// Variable for fetch request to Giffy API
+	// Variables for fetch request to Giffy API
     var APIKey = "Vyq56LLo8dMdf8o9UXjv3AD6rkGETMiR";
     var giffyURL = "https://api.giphy.com/v1/gifs/search?api_key=" + APIKey + "&q=" + movieTitle + "&rating=g";
 	// Fetch request based off movie title to retrieve gif data
@@ -118,6 +125,8 @@ function getGiffy (movieTitle) {
         var imgPath = response.data[0].images.fixed_height.url;
         var img = document.createElement("img");
         img.setAttribute("src", imgPath);
+		// Alt text for gif
+		img.setAttribute("alt", "Gif of " + movieTitle + " movie.");
 		// Removes current gif
 		$("img").remove();
         giffy.appendChild(img); 
@@ -157,21 +166,16 @@ function loadHistory(event) {
 	// Assigns text content of button that was clicked to a variable
 	var movieTitle = event.target.textContent;
 	getMovieInfo(movieTitle);
-	getTrailerID(movieTitle);
-	getGiffy(movieTitle);
 };
 
 // Event listener for pressing enter key when searching for a movie
 input.addEventListener("keydown", function(event) {
-	// Check if the key pressed is the "enter" key
+	// Check if the key pressed is the Enter key (key code 13)
 	if (event.key === "Enter") {
     	// Perform the submit action
 		event.preventDefault();
 		var movieTitle = $(".input").val(); 
 		getMovieInfo(movieTitle);
-		getTrailerID(movieTitle);
-		saveHistory(movieTitle);
-		getGiffy(movieTitle);
 		// Clears search input value
 		$(".input").val("");
   	};
@@ -182,9 +186,6 @@ $(".search-btn").on("click", function() {
 	// Assigns search input value to a variable
 	var movieTitle = $(".input").val(); 
 	getMovieInfo(movieTitle);
-	getTrailerID(movieTitle);
-	saveHistory(movieTitle);
-	getGiffy(movieTitle);
 	// Clears search input value
 	$(".input").val("");
 });
@@ -196,6 +197,11 @@ $(".clear-btn").on("click", function() {
 	// Clears local storage
     localStorage.clear();
     resetPage();
+});
+
+// Event listener for closing modal
+$(".modal-close").on("click", function() {
+	$(".modal").removeClass("is-active");
 });
 
 // Function to reset page to initial state
