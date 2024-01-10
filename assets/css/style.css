@@ -111,6 +111,11 @@ img {
     color: white;
 }
 
+.alert .box {
+    background-color: white;
+    margin-bottom: 74%;
+}
+
 .hide {
     display: none;
 }
