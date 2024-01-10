@@ -44,7 +44,7 @@ function displayTitle(title) {
 	$("#current-movie").text(title);
 };
 
-// Function ti display synopsis
+// Function to display synopsis
 function displaySynopsis(synopsis) {
 	// Clears current synopsis
 	$("#synopsis").text("");
@@ -110,9 +110,9 @@ function displayReviews(reviews) {
 function getGiffy (movieTitle) {
 	// Variable for fetch request to Giffy API
     var APIKey = "Vyq56LLo8dMdf8o9UXjv3AD6rkGETMiR";
-    var giphyURL = "https://api.giphy.com/v1/gifs/search?api_key=" + APIKey + "&q=" + movieTitle + "&rating=g";
+    var giffyURL = "https://api.giphy.com/v1/gifs/search?api_key=" + APIKey + "&q=" + movieTitle + "&rating=g";
 	// Fetch request based off movie title to retrieve gif data
-    fetch(giphyURL)
+    fetch(giffyURL)
 	.then(response => response.json())
 	.then(response => {
         var imgPath = response.data[0].images.fixed_height.url;
@@ -178,7 +178,7 @@ input.addEventListener("keydown", function(event) {
 });
 
 // Event listener for clicking submit button
-$("#search-btn").on("click", function() {
+$(".search-btn").on("click", function() {
 	// Assigns search input value to a variable
 	var movieTitle = $(".input").val(); 
 	getMovieInfo(movieTitle);
