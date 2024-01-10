@@ -22,3 +22,9 @@ THEN a list of my most recent searches appears
 WHEN I click on a recent search
 THEN the results of that movie are loaded again
 ```
+
+Live application: https://yaserhdev.github.io/movie-trailers-and-reviews/
+
+![Screenshot of deployed application](assets/images/movie-trailers-and-reviews-screenshot.png)
+
+* Source code: yaser/bootcamp/movie-trailers-and-reviews
